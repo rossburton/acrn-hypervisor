@@ -39,6 +39,8 @@ include $(BASEDIR)/../scripts/deps.mk
 
 include scripts/kconfig/kconfig.mk
 
+include ../paths.make
+
 LD_IN_TOOL = scripts/genld.sh
 BASH = $(shell which bash)
 
@@ -284,11 +286,11 @@ all: lib $(HV_OBJDIR)/$(HV_FILE).32.out $(HV_OBJDIR)/$(HV_FILE).bin
 
 ifeq ($(CONFIG_PLATFORM_SBL),y)
 install: lib $(HV_OBJDIR)/$(HV_FILE).32.out
-	install -D $(HV_OBJDIR)/$(HV_FILE).32.out $(DESTDIR)/usr/lib/acrn/$(HV_FILE).sbl
+	install -D $(HV_OBJDIR)/$(HV_FILE).32.out $(DESTDIR)$(libdir)/acrn/$(HV_FILE).sbl
 
 install-debug: $(HV_OBJDIR)/$(HV_FILE).map $(HV_OBJDIR)/$(HV_FILE).out
-	install -D $(HV_OBJDIR)/$(HV_FILE).out $(DESTDIR)/usr/lib/acrn/$(HV_FILE).sbl.out
-	install -D $(HV_OBJDIR)/$(HV_FILE).map $(DESTDIR)/usr/lib/acrn/$(HV_FILE).sbl.map
+	install -D $(HV_OBJDIR)/$(HV_FILE).out $(DESTDIR)$(libdir)/acrn/$(HV_FILE).sbl.out
+	install -D $(HV_OBJDIR)/$(HV_FILE).map $(DESTDIR)$(libdir)/acrn/$(HV_FILE).sbl.map
 endif
 
 .PHONY: header

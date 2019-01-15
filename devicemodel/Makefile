@@ -2,6 +2,8 @@
 # ACRN-DM
 #
 include ../VERSION
+include ../paths.make
+
 FULL_VERSION=$(MAJOR_VERSION).$(MINOR_VERSION)$(EXTRA_VERSION)
 BASEDIR := $(shell pwd)
 DM_OBJDIR ?= $(CURDIR)/build
@@ -209,22 +211,22 @@ $(DM_OBJDIR)/%.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 install: $(DM_OBJDIR)/$(PROGRAM) install-samples-nuc install-samples-mrb install-bios install-vmcfg
-	install -D --mode=0755 $(DM_OBJDIR)/$(PROGRAM) $(DESTDIR)/usr/bin/$(PROGRAM)
+	install -D --mode=0755 $(DM_OBJDIR)/$(PROGRAM) $(DESTDIR)$(bindir)/$(PROGRAM)
 
 install-samples-up2: $(SAMPLES_UP2)
-	install -D -t $(DESTDIR)/usr/share/acrn/samples/up2 $^
+	install -D -t $(DESTDIR)$(datadir)/acrn/samples/up2 $^
 
 install-samples-nuc: $(SAMPLES_NUC)
-	install -D -t $(DESTDIR)/usr/share/acrn/samples/nuc $^
+	install -D -t $(DESTDIR)$(datadir)/acrn/samples/nuc $^
 
 install-samples-mrb: $(SAMPLES_MRB)
-	install -D -t $(DESTDIR)/usr/share/acrn/samples/apl-mrb $^
-	install -d $(DESTDIR)/usr/lib/systemd/system/
-	install -p -D -m 0644 ./samples/apl-mrb/acrn_guest.service $(DESTDIR)/usr/lib/systemd/system
+	install -D -t $(DESTDIR)$(datadir)/acrn/samples/apl-mrb $^
+	install -d $(DESTDIR)$(systemd_unitdir)/system/
+	install -p -D -m 0644 ./samples/apl-mrb/acrn_guest.service $(DESTDIR)$(systemd_unitdir)/system
 
 install-bios: $(BIOS_BIN)
-	install -d $(DESTDIR)/usr/share/acrn/bios
-	install -D --mode=0664 -t $(DESTDIR)/usr/share/acrn/bios $^
+	install -d $(DESTDIR)$(datadir)/acrn/bios
+	install -D --mode=0664 -t $(DESTDIR)$(datadir)/acrn/bios $^
 
 install-vmcfg:
 	make -C $(BASEDIR)/vmcfg install DESTDIR=$(DESTDIR) BASEDIR=$(BASEDIR)
