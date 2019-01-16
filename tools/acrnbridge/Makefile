@@ -3,10 +3,10 @@ OUT_DIR ?= .
 SYSTEMD_NETWORKDIR := usr/lib
 
 all:
-	cp acrn.netdev $(OUT_DIR)
-	cp acrn.network $(OUT_DIR)
-	cp acrn_tap0.netdev $(OUT_DIR)
-	cp eth.network $(OUT_DIR)
+	cp acrn.netdev $(OUT_DIR)/
+	cp acrn.network $(OUT_DIR)/
+	cp acrn_tap0.netdev $(OUT_DIR)/
+	cp eth.network $(OUT_DIR)/
 
 install:
 	install -d $(DESTDIR)/$(SYSTEMD_NETWORKDIR)/systemd/network
