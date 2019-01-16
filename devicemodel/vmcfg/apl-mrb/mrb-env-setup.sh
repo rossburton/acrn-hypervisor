@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if [ ! -b "/dev/mmcblk1p3" ]; then
   echo "no /dev/mmcblk1p3 data partition, exit"
